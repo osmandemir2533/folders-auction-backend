@@ -106,6 +106,22 @@ folders-auction-frontend/
 
 ---
 
+# Folders Auction Backend
+
+Folders Auction, dosya paylaşımı ve yönetimi için geliştirilmiş modern, güvenli ve kullanıcı dostu bir web uygulamasının backend kısmıdır.  
+Proje, .NET Core tabanlı, katmanlı mimari kullanılarak geliştirilmiş ve en iyi güvenlik uygulamaları ile donatılmıştır.
+
+---
+
+## 🔗 Frontend Projesi
+
+Projenin frontend kısmına aşağıdaki linkten ulaşabilirsiniz:
+[Folders Auction Frontend](https://github.com/osmandemir2533/folders-auction-frontend)
+
+Frontend projesi React ile geliştirilmiş olup, modern ve kullanıcı dostu bir arayüz sunmaktadır.
+
+---
+
 ## 🧑‍💻 Kullanıcı Deneyimi ve İş Akışı
 
 - **Ana sayfa:**  
@@ -207,3 +223,4 @@ Benimle her zaman iletişime geçebilirsiniz:
 
 > Proje, modern web standartlarına uygun olarak geliştirilmiştir.  
 > Hem güvenli hem de kullanıcı dostu bir dosya yönetim deneyimi sunar.
+
