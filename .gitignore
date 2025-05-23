@@ -142,4 +142,9 @@ Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/
-*.rptproj.bak 
+*.rptproj.bak
+
+# Özel kurallar
+!wwwroot/
+!wwwroot/uploads/
+!wwwroot/Docs/ 
