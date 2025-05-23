@@ -76,6 +76,8 @@ npm run dev
 3. **Backend Projesini Başlatma**
    - Projeyi çalıştırın (F5 veya IIS Express)
 
+**Not:** Backend projesinde yüklenen dosyalar, `Folders_Auction/wwwroot/uploads` klasörüne kaydedilir. Bu klasör, projenin çalışması için gereklidir ve repoya eklenmiştir. Kullanıcılar dosya yüklediğinde, dosyalar bu klasöre otomatik olarak kaydedilir. Endpointe gelen silme işleminde hem bu klasör altından hemde veritabanından ilgili dosya silinir.
+
 > **Not:** Backend projesi çalışır durumda olmalıdır, aksi takdirde frontend API istekleri başarısız olacaktır.
 
 ---
