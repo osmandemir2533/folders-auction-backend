@@ -59,9 +59,11 @@ namespace Folders_Auction_Business.Managers
             var file = await _context.Files.FirstOrDefaultAsync(f => f.Id == fileId && f.UploadedByUserId == userId);
             if (file == null) return false;
 
-            var physicalPath = Path.Combine(_env.WebRootPath, file.FilePath.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+            var physicalPath = Path.Combine(_env.WebRootPath, "uploads", file.FilePath);
             if (File.Exists(physicalPath))
+            {
                 File.Delete(physicalPath);
+            }
 
             _context.Files.Remove(file);
             await _context.SaveChangesAsync();
