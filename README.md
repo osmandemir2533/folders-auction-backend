@@ -1,6 +1,6 @@
-# Folders Auction
+# Folders Manager
 
-Folders Auction, dosya paylaşımı ve yönetimi için geliştirilmiş modern, güvenli ve kullanıcı dostu bir web uygulamasıdır.  
+Folders Manager, dosya paylaşımı ve yönetimi için geliştirilmiş modern, güvenli ve kullanıcı dostu bir web uygulamasıdır.  
 Kullanıcılar dosya yükleyebilir, indirebilir, kendi dosyalarını yönetebilir ve başkalarının paylaştığı dosyaları görüntüleyebilir.  
 Proje, hem frontend hem de backend tarafında güncel teknolojiler ve en iyi güvenlik uygulamaları ile geliştirilmiştir.
 
@@ -11,6 +11,10 @@ Proje, hem frontend hem de backend tarafında güncel teknolojiler ve en iyi gü
 ## 🚀 Projeyi Çalıştırmak İçin
 
 ### Frontend Kurulumu
+
+Projenin frontend kısmına aşağıdaki linkten ulaşabilirsiniz:
+[Folders Auction Frontend](https://github.com/osmandemir2533/folders-auction-frontend)
+---
 
 ```bash
 # Repoyu klonlayın
@@ -29,30 +33,9 @@ npm run dev
 ### Backend Kurulumu
 
 1. **Veritabanı Hazırlığı**
-   - SQL Server Management Studio'yu açın
-   - Yeni bir veritabanı oluşturun: `FoldersAuctionDB`
-   - Package Manager Console'u açın (Visual Studio'da `Ctrl+Q` tuşlarına basıp "Package Manager Console" yazın)
-   - Aşağıdaki komutları sırasıyla çalıştırın:
-
-   ```powershell
-   # İlk migration'ı oluşturun
-   Add-Migration InitialCreate
-
-   # Veritabanını güncelleyin
-   Update-Database
-   ```
-
-   > **Not:** Migration'lar GitHub'da bulunmamaktadır. Her geliştirici kendi migration'larını oluşturmalıdır. Bu, veritabanı şemasının her ortamda doğru şekilde oluşturulmasını sağlar.
-   > 
-   > Eğer veritabanı şemasında değişiklik yapmak isterseniz:
-   > 1. Yeni bir migration oluşturun: `Add-Migration MigrationAdi`
-   > 2. Veritabanını güncelleyin: `Update-Database`
-   > 
-   > **Önemli:** Migration'ları `.gitignore` dosyasında belirtildiği gibi GitHub'a pushlamayın. Bu, her geliştiricinin kendi ortamında migration'ları yönetmesine olanak tanır.
-
-2. **Backend Projesini Başlatma**
-   - Visual Studio'da backend projesini açın
-   - `appsettings.json` dosyasında connection string'i kontrol edin:
+   - Visual Studio'da `Folders_Auction.sln` projesini açın
+   - Çözüm Gezgini'nde (`Solution Explorer`) `Folders_Auction` katmanına sağ tıklayın ve **Başlangıç projesi olarak ayarla** seçeneğini tıklayın.
+   - `appsettings.json` dosyasında connection string'i kendi `server name` inizi yazın:
 
    ```json
    "ConnectionStrings": {
@@ -60,55 +43,139 @@ npm run dev
    }
    ```
 
+   - SQL Server Management Studio'yu açın
+   - Yeni bir veritabanı oluşturun: `FoldersAuctionDB` . Oluşturmasanız bile migration basma adımında otomatik oluşacak
+   - Package Manager Console'u açın (Visual Studio'da `Ctrl+Q` tuşlarına basıp "Package Manager Console" yazın)
+   - **Dikkat:** Package Manager Console'un üst kısmındaki 'Varsayılan Proje'yi `Folders_Auction_Data_Access` olarak seçin.
+   - Aşağıdaki komutları sırasıyla çalıştırın:
+
+   ```powershell
+   # İlk migration'ı oluşturun
+   Add-Migration mig1
+
+   # Veritabanını güncelleyin
+   Update-Database
+   ```
+
+   > **Not:** Migration'lar GitHub'da bulunmamaktadır. Her geliştirici kendi migration'larını oluşturmalıdır. Bu, veritabanı şemasının her ortamda doğru şekilde oluşturulmasını sağlar.
+   
+2. **Otomatik Swagger Başlatma (Visual Studio'da)**
+   - Backend projesini her F5 ile başlattığınızda Swagger arayüzünün otomatik olarak açılması için aşağıdaki adımları izleyin:
+   
+   1. Visual Studio'da `Folders_Auction` katmanına sağ tıklayın ve **Özellikler**'i seçin.
+   2. Sol menüden **Hata Ayıkla** sekmesine tıklayın.
+   3. "Hata Ayıklama Başlatma Profilleri" bölümünde **Kullanıcı arabirimini aç** butonuna tıklayın.
+   4. Açılan pencerede **https** kısmında aşağıdaki alanları doldurun:
+      - **URL** kısmına: `https://localhost:7074/swagger`
+      - **Uygulama URL'si** kısmına: `https://localhost:7074;http://localhost:5253`
+   5. Kaydedin.
+   6. Artık backend her başlatıldığında otomatik olarak Swagger arayüzü tarayıcıda açılacaktır.
+
+   > **Not:** Bu ayar kişiseldir ve repoya eklenmez. Repoyu klonlayan herkesin kendi bilgisayarında bu adımları uygulaması gerekir. Aksi halde backend başlar, Swagger'a elle tarayıcıdan ulaşmak için `https://localhost:7074/swagger` adresini kullanabilirsiniz.
+
+3. **Backend Projesini Başlatma**
    - Projeyi çalıştırın (F5 veya IIS Express)
 
 > **Not:** Backend projesi çalışır durumda olmalıdır, aksi takdirde frontend API istekleri başarısız olacaktır.
 
 ---
 
-## 📁 Klasör ve Dosya Yapısı
+## 📁 Backend Klasör ve Dosya Yapısı
 
 ```
-folders-auction-frontend/
+Folders_Auction/
 │
-├── public/
-│   └── ...                # Statik dosyalar
-├── src/
-│   ├── components/
-│   │   ├── FileCard.jsx
-│   │   ├── Header.jsx
-│   │   └── Header.css
-│   ├── context/
-│   │   └── AuthContext.jsx
-│   ├── pages/
-│   │   ├── About/
-│   │   │   └── About.jsx
-│   │   ├── Contact/
-│   │   │   └── Contact.jsx
-│   │   ├── Dashboard/
-│   │   │   ├── Dashboard.jsx
-│   │   │   └── Dashboard.css
-│   │   ├── Home/
-│   │   │   ├── Home.jsx
-│   │   │   └── Home.css
-│   │   ├── Login/
-│   │   │   ├── Login.jsx
-│   │   │   └── Login.css
-│   │   ├── Register/
-│   │   │   ├── Register.jsx
-│   │   │   └── Register.css
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── ...
-├── package.json
-└── README.md
+├── Controllers/
+│   ├── AuthController.cs
+│   └── FilesController.cs
+│
+├── Properties/
+│   └── ... (VS proje ayar dosyaları)
+│
+├── wwwroot/
+│   ├── uploads/
+│   │   └── (yüklenen dosyalar burada gözükecek)
+│   └── Docs/
+│
+├── obj/
+│   └── ... (build dosyaları)
+│
+├── bin/
+│   └── ... (derleme çıktıları)
+│
+├── Folders_Auction.csproj
+├── Folders_Auction.csproj.user
+├── Folders_Auction.http
+├── Program.cs
+├── README.md
+├── appsettings.json
+├── appsettings.Development.json
+│
+Folders_Auction_Business/
+│
+├── Managers/
+│   ├── AuthManager.cs
+│   └── FileManager.cs
+│
+├── Services/
+│   ├── IAuthService.cs
+│   └── IFileService.cs
+│
+├── obj/
+│   └── ... (build dosyaları)
+│
+├── bin/
+│   └── ... (derleme çıktıları)
+│
+├── Folders_Auction_Business.csproj
+├── Class1.cs
+│
+Folders_Auction_Core/
+│
+├── DTOs/
+│   ├── FileDto.cs
+│   ├── FileUploadDto.cs
+│   ├── UserLoginDto.cs
+│   └── UserRegisterDto.cs
+│
+├── Entities/
+│   ├── AppUser.cs
+│   └── FileEntity.cs
+│
+├── obj/
+│   └── ... (build dosyaları)
+│
+├── bin/
+│   └── ... (derleme çıktıları)
+│
+├── Folders_Auction_Core.csproj
+├── Class1.cs
+│
+Folders_Auction_Data_Access/
+│
+├── Contexts/
+│   └── ApplicationDbContext.cs
+│
+├── Migrations/
+│   ├── (migraiton basılınca bu kısımda gözükecek)
+│ 
+│
+├── obj/
+│   └── ... (build dosyaları)
+│
+├── bin/
+│   └── ... (derleme çıktıları)
+│
+├── Folders_Auction_Data_Access.csproj
+├── Class1.cs
+
 ```
 
 ---
 
-# Folders Auction Backend
+# Folders Manager Backend
 
-Folders Auction, dosya paylaşımı ve yönetimi için geliştirilmiş modern, güvenli ve kullanıcı dostu bir web uygulamasının backend kısmıdır.  
+Folders Manager, dosya paylaşımı ve yönetimi için geliştirilmiş modern, güvenli ve kullanıcı dostu bir web uygulamasının backend kısmıdır.  
 Proje, .NET Core tabanlı, katmanlı mimari kullanılarak geliştirilmiş ve en iyi güvenlik uygulamaları ile donatılmıştır.
 
 ---
@@ -116,7 +183,7 @@ Proje, .NET Core tabanlı, katmanlı mimari kullanılarak geliştirilmiş ve en 
 ## 🔗 Frontend Projesi
 
 Projenin frontend kısmına aşağıdaki linkten ulaşabilirsiniz:
-[Folders Auction Frontend](https://github.com/osmandemir2533/folders-auction-frontend)
+[Folders Manager Frontend](https://github.com/osmandemir2533/folders-auction-frontend)
 
 Frontend projesi React ile geliştirilmiş olup, modern ve kullanıcı dostu bir arayüz sunmaktadır.
 
